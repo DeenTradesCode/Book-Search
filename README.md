@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 18 MERN: Book Search Engine
 
 ## Your Task
@@ -252,3 +253,7 @@ You are required to submit BOTH of the following for review:
 
 ---
 © 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+=======
+# Book-Search
+An Application to search and Favorite your books! 
+>>>>>>> bbde56b360796a222312aa81d0ec05cca5cababe
