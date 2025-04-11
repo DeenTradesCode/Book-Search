@@ -18,7 +18,6 @@ const PORT = parseInt(process.env.PORT as string, 10) || 3001;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  
 });
 
 const app = express();
@@ -26,7 +25,10 @@ const app = express();
 const startApolloServer = async () => {
   try {
     await server.start();
-    await db;
+    await db; // This should handle your MongoDB connection
+
+    // Remove this redundant connection
+    // mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/your-database');
 
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
@@ -34,15 +36,10 @@ const startApolloServer = async () => {
     app.use(
       "/graphql",
       expressMiddleware(server as any, {
-
-
         context: async (contextParams) => {
-
           try {
-
             return await authenticateToken(contextParams);
           } catch (error) {
-            
             console.error("Authentication error:", error);
             throw error;
           }
@@ -64,6 +61,7 @@ const startApolloServer = async () => {
         }
       });
     }
+    
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);

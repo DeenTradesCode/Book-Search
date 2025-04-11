@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const PORT = parseInt(process.env.PORT, 10) || 3001;
+const PORT = parseInt(process.env.PORT || "3001", 10);
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -46,6 +46,10 @@ const startApolloServer = async () => {
                 }
             });
         }
+        app.use(express.static(path.join(__dirname, '../client/dist')));
+        app.get('*', (_req, res) => {
+            res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+        });
         app.listen(PORT, "0.0.0.0", () => {
             console.log(`API server running on port ${PORT}!`);
             console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
