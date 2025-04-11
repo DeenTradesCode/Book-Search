@@ -2,7 +2,6 @@ import type { Request } from "express";
 import jwt from "jsonwebtoken";
 import { GraphQLError } from "graphql";
 import dotenv from "dotenv";
-// Removed unused bcrypt import
 dotenv.config();
 
 interface JwtPayload {
